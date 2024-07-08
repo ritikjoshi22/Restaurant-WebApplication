@@ -14,7 +14,7 @@ const About = () => {
                   <p className="mid">
                       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, fuga sapiente. Expedita dicta, consequuntur asperiores placeat delectus culpa ratione repudiandae enim a soluta est ut sed, aperiam quasi voluptatum nihil laborum optio magni dolore odit alias. Corrupti eum commodi debitis error voluptatem, autem, praesentium quos alias cumque, suscipit in a?
                   </p>
-                  <Link to={"/"}>Explore Menu <span>
+                  <Link to={"/"}>Explore Menu{" "}<span>
                   <HiOutlineArrowNarrowRight/>
                   </span></Link>
               </div>
