@@ -15,10 +15,34 @@ const Reservation = () => {
   const navigate = useNavigate();
   const handleReservation = async (e) => {
     e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    toast.error("Please provide a valid email address.");
+    return;
+  }
+
+  // Validate phone number length
+  if (phone.length !== 10 || isNaN(phone)) {
+    toast.error("Phone number must contain exactly 10 digits.");
+    return;
+  }
+    if (!firstName || !lastName || !email || !phone || !date || !time) {
+      toast.error("Please fill out all fields");
+      return;
+    }
     try {
-      const { data } = await axios.post(
+      const requestData = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        date,
+        time,
+      };
+      console.log("Sending data: ", requestData);
+      const {data} = await axios.post(
         "http://localhost:4000/api/v1/reservation/send",
-        { firstName, lastName, email, phone, date, time },
+        requestData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +59,8 @@ const Reservation = () => {
       setDate("");
       navigate("/success");
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error("Error response: ", error.response);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -82,11 +107,12 @@ const Reservation = () => {
                 <input
                   type="email"
                   placeholder="Email"
+                  className="email_tag"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                  type="number"
+                  type="tel"
                   placeholder="Phone Number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}

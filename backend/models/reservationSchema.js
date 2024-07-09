@@ -14,6 +14,14 @@ const reservationSchema = new mongoose.Schema({
         minLength: [3, "Last name must contain at least 3 characters!"],
         maxLength: [30, "Last name must contain at most 30 characters!"],
     },
+    date: {
+        type: String,
+        required: true,
+    },
+    time: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
@@ -22,20 +30,8 @@ const reservationSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        validate: {
-            validator: function (v) {
-                return /^\d{10}$/.test(v);
-            },
-            message: "Phone number must be 10 digits!",
-        },
-    },
-    time: {
-        type: String,
-        required: true,
-    },
-    date: {
-        type: Date,
-        required: true,
+        minLength: [10, "Phone number must contain 10 Digits."],
+        maxLength: [10, "Phone number must contain 10 Digits."],
     },
 });
 
